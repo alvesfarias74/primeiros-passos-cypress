@@ -16,7 +16,10 @@ describe('Orange HRM Tests', () => {
     genericField: ".oxd-input--active",
     dateField: "[placeholder='yyyy-mm-dd']",
     dateCloseButton: ".--close",
-    submitButton: "[type='submit']"
+    submitButton: "[type='submit']",
+    genericCombobox: ".oxd-select-text--arrow",
+    secondItemCombobox: ".oxd-select-dropdown > :nth-Child(27)",
+    thirdItemCombobox: ".oxd-select-dropdown > :nth-child(3)"
   }
 
   it.only('User Info Update - Success', () => {
@@ -35,8 +38,14 @@ describe('Orange HRM Tests', () => {
     cy.get(selectorList.genericField).eq(5).clear().type('123456')    
     cy.get(selectorList.genericField).eq(6).clear().type('2025-03-10')
     cy.get(selectorList.dateCloseButton).click()
-    cy.get(selectorList.submitButton).eq(0).click()
+    cy.get(selectorList.submitButton).eq(0).click({force: true})
     cy.get('.oxd-toast-close')
+
+    cy.get(selectorList.genericCombobox).eq(0).click()
+    cy.get(selectorList.secondItemCombobox).click()
+    cy.get(selectorList.genericCombobox).eq(1).click()
+    cy.get(selectorList.thirdItemCombobox).click()
+    
   })
   it('Login - Fail', () => {
     cy.visit('/auth/login')
